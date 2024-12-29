@@ -45,37 +45,25 @@ const requestListener = (req,res)=>{
 
         const body=[];
 
-        //req.on("data",(chunk)) matlab jab bhi data jae to chunk me jata h to jab jae tab kya iske through kar skte h
         req.on("data",(chunk) => {
             console.log(chunk);
             body.push(chunk);
         });
 
-        //req.on("end",()=>) matlab req poore chli jae tab kya karna h....
         req.on("end",() => {
-            //Buffer.concat(body).toString() ka matlab h ki jab chunks me data aata h buffer me aa jata h to data ko string me convert kiya fir poora concat karke buffer me gya aur fir fullBody me aa gya....
-            /// Buffer ka matlab h jo bhi data aage piche ya kuch aur prob ho to usko perfectly arrange karne ke liye iska use hota h....
+
             const fullBody = Buffer.concat(body).toString();
             console.log(fullBody);
 
-            // URLSearchParams jo concat hoke jate h na ek param ke form me usko firse alag usable bnane ke liye use hota h 
+
             const params = new URLSearchParams(fullBody);
             const bodyObject = {};
 
-            // ye array of array ki form me data dega URLSearchParams to params me array of arrays ki form me data h ab ek loop ke through ek ek value dono se uthane lage aur ek object bosyObject me key value type me store kar denge now body object is a object which has keys and values try and check user.txt....
-            //params.entries ka matlab whi param me jo entries...
+
             for (const [key,val] of params.entries()){
                 bodyObject[key]=val;
             }
 
-
-            /*
-
-            isko aise bhi likh skte h 
-            const bodyObject = Object.fromEntries(params);
-
-
-            */
 
 
             const jsonstring = JSON.stringify(bodyObject);
@@ -116,8 +104,6 @@ const requestListener = (req,res)=>{
     }
 }
 
-// modules.export used to export function or anything to other files...
-/// for multiple write (module.exports = {.....})
 module.exports = requestListener;
 
 
