@@ -7,9 +7,6 @@
 const express = require('express');
 // content type wagerah header ye sab express khud dekh leta h.....
 
-//local modules...
-const requestListener = require('./user')
-
 
 //middleware are the steps kya kya kis sequence me hota h isme teen parameters honge req res and next jo bolega next middleware pe jao..
 const app = express();
