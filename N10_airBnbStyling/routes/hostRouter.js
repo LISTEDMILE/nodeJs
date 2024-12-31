@@ -1,6 +1,5 @@
 const express = require('express');
 
-// hostRouter me express se Router matlab route bna liya ..
 const hostRouter = express.Router();
 
 
@@ -24,6 +23,4 @@ hostRouter.post("/host/addHome",(req,res,next) => {
     `)
 });
 
-
-//last me same jaise export karte the export kar diya....
 module.exports = hostRouter;
