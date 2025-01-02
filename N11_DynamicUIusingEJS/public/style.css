@@ -1,0 +1,106 @@
+
+body{
+    background-color: rgb(245, 239, 239);
+    min-height:85vh;
+    margin:0px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+#body{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+h1{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    margin:0px;
+}
+a{
+    background-color: rgb(238, 188, 52);
+    color:black;
+    vertical-align: center;
+    border:1px solid black;
+    width:fit-content;
+    border-radius: 6px;
+    padding:4px 8px;
+    height: 25px;
+}
+a:hover{
+    background-color: transparent;
+    box-shadow: 0px 10px 30px 1px  rgba(239, 243, 12, 0.616);
+    
+}
+header{
+    background-color: rgb(12, 150, 115);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding:10px;
+    width:100%;
+    *{
+        margin-left: 30px;
+    }
+}
+#div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgba(165, 42, 42, 0.218);
+    min-height: 80vh;
+    width:70%;
+    margin:4px;
+    p{
+        font-size: x-large;
+        justify-self:end;
+    }
+    list-style: none;
+    div{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        text-align: center;
+        
+        li{
+            height:50px;
+            display:flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position:relative;
+            width:22%;
+            height:150px;
+            background-color:white;
+            margin-top: 30px;
+            border-radius: 8px;
+            border: 1px solid black;
+            h1{
+                color:white;
+                font-size: 20px;
+                background-color: rgb(2, 197, 197);
+                width:100%;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                text-align: center;
+
+            }
+            textarea{
+                font-size: 14px;
+                font-weight:bold;
+                width: 90%;
+                height: inherit;
+                text-align: center;
+                border: none;
+            }
+        }
+        li:hover{
+            top:-6px;
+            box-shadow: 0px 20px 50px 0.2px black;
+        }
+    }
+}
+b{
+    color:rgb(19, 19, 112);
+}

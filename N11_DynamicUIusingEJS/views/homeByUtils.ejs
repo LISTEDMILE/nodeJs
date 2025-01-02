@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Landing Page
+        </title>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <%
+      function deelete (){
+        details=details.filter((e) => e.id!=1735834275411);
+      }
+        %>
+        <header>
+            <h1>HEY! Welcome</h1>
+            <a href="/test/addHome">Add Home</a>
+        </header>
+        <div id="body">
+    <div id="div">
+        <div >
+        <% details.forEach(function(detail) { %>
+            <li>
+                <h1 id="name">
+                    <%= detail.houseName %>
+                </h1>
+                <textarea disabled>
+                    <%= detail.description %>
+                </textarea>
+            </li>
+        <% });%>
+    </div>
+        <p> from / <b><u> test </u></b>/addHome</p>
+    </div>
+</div>
+    </body>
+</html>
