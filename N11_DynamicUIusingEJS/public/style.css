@@ -45,17 +45,27 @@ header{
 #div{
     display: flex;
     align-items: center;
+    border-radius: 8px 8px 0px 0px;
     justify-content: space-between;
     flex-direction: column;
-    background-color: rgba(165, 42, 42, 0.218);
+    background-color: rgba(165, 42, 42, 0.13);
+    box-shadow: 10px 10px 30px 1px black;
     min-height: 80vh;
     width:70%;
-    margin:4px;
+    margin-top:30px;
     p{
         font-size: x-large;
         justify-self:end;
     }
     list-style: none;
+    #top{
+        background-color:rgb(61, 128, 86);
+        width:100%;
+        padding:6px 0px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        text-align: center;
+    }
     div{
         width: 100%;
         display: flex;
@@ -76,6 +86,7 @@ header{
             margin-top: 30px;
             border-radius: 8px;
             border: 1px solid black;
+            box-shadow: 0px 15px 25px 1px black;
             h1{
                 color:white;
                 font-size: 20px;
@@ -84,6 +95,7 @@ header{
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
                 text-align: center;
+                padding:3px 0px;
 
             }
             textarea{
@@ -96,8 +108,8 @@ header{
             }
         }
         li:hover{
-            top:-6px;
-            box-shadow: 0px 20px 50px 0.2px black;
+            top:-25px;
+            box-shadow: 0px 15px 30px 3px black;
         }
     }
 }
