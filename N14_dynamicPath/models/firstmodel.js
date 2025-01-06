@@ -15,7 +15,7 @@ module.exports = class Home{
         //this.houseName matlab jo Landing page class h usme jo houseName h = houseName matlab jo hm constructor me dal rhe..
         this.houseName = houseName;
         this.description = description;
-        this.id = Date.now();
+        this.id = JSON.stringify(Date.now());
 
     }
 
@@ -50,5 +50,14 @@ module.exports = class Home{
             }
         });
         
+    }
+
+
+    // fetchAll se poora wo nikala aaur call back home wala jo h usko diya fir jo static finById function h isme jo home mila wo call back me chla gya in storeController.js...
+    static findById(homeId,callback){
+        this.fetchAll(home => {
+            const homeFound = home.find(home => home.id === homeId);
+            callback(homeFound);
+        })
     }
 }

@@ -1,7 +1,7 @@
 const Home = require('../models/firstmodel');
 
 exports.addHomeGet = (req,res,next) => {
-    res.render('host/addHome',{title:"Add Home"});
+    res.render('host/addHome',{active:"addHome",title:"Add Home"});
 };
 
 exports.addHomePost = (req,res,next) => {
@@ -10,12 +10,12 @@ exports.addHomePost = (req,res,next) => {
     // const {houseName,description} = req.body;
     //const home = new Home(houseName,description);
     home.save();
-    res.render('host/addedHome',{title:"Home Added"});
+    res.render('host/addedHome',{active:"addHomePost",title:"Home Added"});
 };
 
 exports.hostHomeList = (req,res,next) => {
     const details = Home.fetchAll((details) => {
-        res.render('host/hostHomeList',{title:"Home added by you",details});
+        res.render('host/hostHomeList',{active:"hostHomeList",title:"Home added by you",details});
     });
 };
 

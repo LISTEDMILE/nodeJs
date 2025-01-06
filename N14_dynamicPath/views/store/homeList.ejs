@@ -15,8 +15,8 @@
                 <p id="textarea">
                     <%= detail.description %>
                 </p>
-                <button>book</button>
-                <a href="store/homeDetails/<% detail.id %>"></a>
+                <%- include ('../partials/favouriteButton',{home:detail})%>
+                <a href="/store/homeDetails/<%= detail.id %>">lkdsfj</a>
             </li>
         <% });%>
     </div>
