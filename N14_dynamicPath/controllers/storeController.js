@@ -5,7 +5,19 @@ const favouriteClass= require('../models/favouriteModel');
 exports.homeList = (req,res,next) => {
     //fetchAll declared in first.js....
     const details = Home.fetchAll((details) => {
-        res.render('store/homeList',{details:details,title:"Home List",active:"homeList"});
+        favouriteClass.getFavourites((favourites) => {    
+            const detailsWithFav = details.map(detail => {
+                if(favourites.includes(detail.id)){
+                    detail.fav=true;
+                }
+                else{
+                    detail.fav=false;
+                }
+                return detail;
+            })
+            res.render('store/homeList',{details:detailsWithFav,title:"Home List",active:"homeList"});
+        })
+        
     });
 };
 
@@ -20,9 +32,6 @@ exports.getFavourites = (req,res,next) => {
         Home.fetchAll((details) => {
             
             const favouriteHomes = details.filter((e) => favourites.includes(e.id));
-            console.log(details);
-            console.log(favourites);
-            console.log(favouriteHomes);
             res.render('store/favourite',{favouriteHomes:favouriteHomes,title:"Favourites",active:"favourite"});
         })
     })
@@ -31,7 +40,6 @@ exports.getFavourites = (req,res,next) => {
 };
 
 exports.postAddFavourites = (req,res,next) => {
-    console.log(req.body);
     favouriteClass.addFavourite(req.body.id,error => {
         if(error) {
             console.log('Error adding favourites')

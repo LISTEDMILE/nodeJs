@@ -15,8 +15,14 @@
                 <p id="textarea">
                     <%= detail.description %>
                 </p>
-                <button>edit</button>
-                <button>delete</button>
+                <!--here ?editing =true ka matlab h jaise params me koi value bhejte the aise hi kuch var bhi bhej skte h jaise yha editing=true bheja h-->
+                <a href="/host/editHome/<%= detail.id%>?editing=true"> Edit</a>
+                <form action="/host/deleteHome/<%= detail.id%>" method='POST'>
+                    <button type="submit">
+                        Delete
+                    </button>
+                </form>
+                
             </li>
         <% });%>
     </div>

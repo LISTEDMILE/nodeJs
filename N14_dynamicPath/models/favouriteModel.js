@@ -8,12 +8,9 @@ module.exports = class favouriteClass{
         favouriteClass.getFavourites((favourites) => {
             if(favourites.includes(homeId)){
                 favourites = favourites.filter(e => e!=homeId);
-                console.log('removed',homeId);
             }
             else{
                 favourites.push(homeId);
-                console.log('added',homeId);
-                console.log(favourites);
             }
             fs.writeFile(favouriteDataPath,JSON.stringify(favourites),callback);
         });
@@ -21,8 +18,16 @@ module.exports = class favouriteClass{
     
     static getFavourites(callback){
         fs.readFile(favouriteDataPath,(err,data) => {
-            callback(!err ? JSON.parse(data) : []);
-            
+            callback(!err ? JSON.parse(data) : []);   
         });           
     }
+
+    static deleteFavouriteIfDeletedHome(homeId,callback){
+        favouriteClass.getFavourites((favourites) => {
+            favourites = favourites.filter(e => e!=homeId);
+            fs.writeFile(favouriteDataPath,JSON.stringify(favourites),callback);
+        });
+    }
 }
+
+

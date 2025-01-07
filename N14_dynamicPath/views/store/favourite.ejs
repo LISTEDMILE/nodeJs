@@ -15,7 +15,8 @@
                 <p id="textarea">
                     <%= detail.description %>
                 </p>
-                <button>book</button>
+                <% detail.fav = true; %>
+                <%- include('../partials/favouriteButton',{home:detail})%>
             </li>
         <% });%>
     </div>

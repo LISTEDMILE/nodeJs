@@ -1,4 +1,4 @@
 <form action="/store/favourite" method="POST">
-    <button type="submit">Add to favourite</button>
+    <button type="submit"><%= home.fav?"Remove from":"Add to"%> favourite</button>
     <input type="hidden" name="id" value="<%=home.id%>"/>
 </form>
