@@ -1,0 +1,28 @@
+<%- include('../partials/head')%>
+<link rel="stylesheet" href="/addHomeStyle.css"/>
+	<body>
+		<%- include('../partials/nav')%>
+        <form action="/host/<%= editing ?'editHome':'addHome'%>" method="POST">
+			<h1>
+				<%= editing ? "Edit" : "Add" %> Your Home 
+			</h1>
+			<div id="div">
+				<input type="hidden" <% if(editing) {%>value="<%=detail.id%>"<%}%> name="id"/>
+				<div>
+					<label>
+						Enter your House Name
+					</label>
+            <input type="text" <% if(editing) {%>value="<%=detail.houseName%>"<%}%> name="houseName" placeholder="House Name"/>
+			<label>
+				Describe your house
+			</label>
+			<input type="text"<% if(editing) {%>value="<%=detail.description%>"<%}%> name="description" placeholder="Describe your house here"/>
+		</div>
+            <input id="submit" type="submit" value="<%= editing ? 'Update Home' : 'Add Home' %>"/>
+			</div>
+			<p> *For multiple response come back from next page.</p>
+        </form>
+		<%- include ('../partials/footer')%>
+	</body>
+</html>
+		
