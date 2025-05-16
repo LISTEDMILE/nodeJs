@@ -81,7 +81,7 @@ exports.hostHomeList = (req, res, next) => {
 
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
-  Home.deleteById(homeId)
+  Home.findByIdAndDelete(homeId)
     .then((homeId) => {
       favouriteClass.getFavourites().then((favourites) => {
         favourites = favourites.map((fav) => fav.homeId);

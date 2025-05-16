@@ -1,10 +1,10 @@
 const Home = require("../models/firstmodel");
-const favouriteClass = require("../models/favouriteModel");
+const Favourites = require("../models/favouriteModel");
 
 exports.homeList = (req, res, next) => {
   //find declared in first.js....
   const details = Home.find().then((details) => {
-    favouriteClass.getFavourites().then((favourites) => {
+    Favourites.find().then((favourites) => {
       const detailsWithFav = details.map((detail) => {
         if (favourites.includes(detail._id)) {
           detail.fav = true;
@@ -33,8 +33,8 @@ exports.getBooked = (req, res, next) => {
 };
 
 exports.getFavourites = (req, res, next) => {
-  favouriteClass.getFavourites().then((favourites) => {
-    favourites = favourites.map((fav) => fav.homeId);
+  Favourites.find().then((favourites) => {
+    favourites = favourites.map((fav) => fav.homeId.toString());
     const details = Home.find().then((details) => {
       const favouriteHomes = details.filter((e) =>
         favourites.includes(String(e._id))
@@ -50,14 +50,12 @@ exports.getFavourites = (req, res, next) => {
 
 exports.postAddFavourites = (req, res, next) => {
   const homeId = String(req.body._id);
-  favouriteClass
-    .getFavourites()
-    .then((favourites) => {
-      favourites = favourites.map((fav) => fav.homeId);
+  Favourites.find().then((favourites) => {
+      favourites = favourites.map((fav) => fav.homeId.toString());
       if (favourites.includes(homeId)) {
-        favouriteClass.deleteFavourite(homeId);
+        Favourites.findByIdAndDelete(homeId)
       } else {
-        const fav = new favouriteClass(homeId);
+        const fav = new Favourites({ homeId: homeId });
         fav.save().catch((err) => {
           console.log("Error adding fav", err);
         });

@@ -32,7 +32,7 @@
 			<label>
 				Describe your house
 			</label>
-			<textarea <% if(editing) {%>value="<%=detail.description%>"<%}%> name="description" placeholder="Describe your house here"></textarea>
+			<input <% if(editing) {%>value="<%=detail.description%>"<%}%> name="description" placeholder="Describe your house here"></input>
 		</div>
             <input id="submit" type="submit" value="<%= editing ? 'Update Home' : 'Add Home' %>"/>
 			</div>

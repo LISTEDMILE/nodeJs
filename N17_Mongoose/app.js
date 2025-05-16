@@ -6,6 +6,14 @@ const rootDir = require("./utils/pathUtils");
 const path = require('path');
 const { default: mongoose } = require('mongoose');
 
+// for ease we use mongoose we import as shown and connect mongoose to given mongoDB path
+// than create a schema as in firstmodel.js matlab ek structure pehle se define krdenge fir
+// mongoose.model karke export karenge aur usme hoga nam model or schemaka ka
+// ab is nam se import karke koi bhi function, find wagerah use kar skte h
+// usko agar edit kiya to Schema ka nam.save(); se save ho jaega agar existing h id to edit nhi to add......
+
+
+// in facourite model we have used type mongoose.Scheema.Types.ObjectId matlab monsoose ke scheema wala type aappas me cordinate krne me aasanin rhegi
 const app = express();
 
 app.set('view engine','ejs');
