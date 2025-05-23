@@ -17,6 +17,7 @@ exports.homeList = (req, res, next) => {
         details: detailsWithFav,
         title: "Home List",
         active: "homeList",
+        isLoggedIn: req.isLoggedIn
       });
     });
   });
@@ -28,6 +29,7 @@ exports.getBooked = (req, res, next) => {
       details: details,
       title: "Bookings",
       active: "booked",
+      isLoggedIn: req.isLoggedIn
     });
   });
 };
@@ -42,6 +44,7 @@ exports.getFavourites = (req, res, next) => {
         favouriteHomes: favouriteHomes,
         title: "Favourites",
         active: "favourite",
+        isLoggedIn: req.isLoggedIn
       })
       });
     
@@ -77,6 +80,7 @@ exports.getIndex = (req, res, next) => {
       details: details,
       title: "Index Page",
       active: "index",
+      isLoggedIn: req.isLoggedIn,
     });
   });
 };
@@ -92,6 +96,7 @@ exports.getHomeDetails = (req, res, next) => {
         title: "Details",
         active: "homeList",
         home: homes,
+        isLoggedIn: req.isLoggedIn
       });
     }
   });

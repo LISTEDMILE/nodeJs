@@ -3,9 +3,11 @@ exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     active: "login",
     title: "login",
+    isLoggedIn: false
   });
 };
 
 exports.postLogin = (req, res, next) => {
-  res.redirect("/host/hostHomeList")
+  req.isLoggedIn = true;
+  res.redirect("/store/homeList")
 }

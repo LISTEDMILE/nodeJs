@@ -18,7 +18,14 @@ app.use(express.static(path.join(rootDir,'public')));
 
 app.use(express.urlencoded());
 app.use("/auth",authRouter);
-app.use("/host",hostRouter);
+app.use("/host", (req, res, next) => {
+    if (req.isLoggedIn) {
+        next();
+    }
+    else {
+        res.redirect("/auth/login");
+    }
+} );
 app.use("/store", storeRouter);
 
 

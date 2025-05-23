@@ -3,6 +3,7 @@
 <header>
     <p></p>
     <div id="navDiv">
+        <% if(isLoggedIn === true){%>
     <a href="/host/addHome" class="<%= active === 'addHome' ? 'bg-red-600 shadow-black shadow-lg' : 'hover:shadow-black shadow-lg hover:bg-red-500' %> py-2 px-4 rounded transition duration-300 no-underline">
         Add Home</a>
 
@@ -20,6 +21,7 @@
 
     <a href="/host/hostHomeList" class="<%= active === 'hostHomeList' ? 'bg-red-600 shadow-black shadow-lg' : 'hover:shadow-black shadow-lg hover:bg-red-500' %> py-2 px-4 rounded transition duration-300 no-underline">
         Added by you</a>
+        <% }%>
 
     <a href="/store/homeList" class="<%= active === 'homeList' ? 'bg-red-600 shadow-black shadow-lg' : 'hover:shadow-black shadow-lg hover:bg-red-500' %> py-2 px-4 rounded transition duration-300 no-underline">
         Homes</a>

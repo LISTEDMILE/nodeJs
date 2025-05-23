@@ -6,6 +6,7 @@ exports.addHomeGet = (req, res, next) => {
     active: "addHome",
     title: "Add Home",
     editing: false,
+    isLoggedIn: req.isLoggedIn
   });
 };
 
@@ -27,7 +28,8 @@ exports.addHomePost = (req, res, next) => {
     description:description,
   });
   home.save().then(
-    res.render("host/addedHome", { active: "addHomePost", title: "Home Added" })
+    res.render("host/addedHome", { active: "addHomePost", title: "Home Added",
+      isLoggedIn: req.isLoggedIn })
   );
 };
 
@@ -47,6 +49,7 @@ exports.getEditHome = (req, res, next) => {
       active: "hostHomeList",
       title: "Edit Home",
       editing: editing,
+      isLoggedIn: req.isLoggedIn
     });
   });
 };
@@ -76,6 +79,7 @@ exports.hostHomeList = (req, res, next) => {
       active: "hostHomeList",
       title: "Home added by you",
       details: details,
+      isLoggedIn: req.isLoggedIn
     });
   });
 };
