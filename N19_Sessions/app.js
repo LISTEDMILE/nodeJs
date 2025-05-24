@@ -17,6 +17,12 @@ app.set('views','views');
 app.use(express.static(path.join(rootDir,'public')));
 
 app.use(express.urlencoded());
+app.use((req, res, next) => {
+    req.isLoggedIn = req.get('Cookie') ? req.get('Cookie').split('=')[1] === 'true' : false;
+    next();
+    }
+    
+);
 app.use("/auth",authRouter);
 app.use("/host", (req, res, next) => {
     if (req.isLoggedIn) {
@@ -26,6 +32,7 @@ app.use("/host", (req, res, next) => {
         res.redirect("/auth/login");
     }
 } );
+app.use("/host", hostRouter);
 app.use("/store", storeRouter);
 
 

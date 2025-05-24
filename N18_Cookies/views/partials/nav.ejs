@@ -26,8 +26,20 @@
     <a href="/store/homeList" class="<%= active === 'homeList' ? 'bg-red-600 shadow-black shadow-lg' : 'hover:shadow-black shadow-lg hover:bg-red-500' %> py-2 px-4 rounded transition duration-300 no-underline">
         Homes</a>
 
-        <a href="/auth/login" class="<%= active === 'login' ? 'bg-red-600 shadow-black shadow-lg' : 'hover:shadow-black shadow-lg hover:bg-red-500' %> py-2 px-4 rounded transition duration-300 no-underline">
-            Login</a>
+        
+
+            <% if(isLoggedIn){%>
+
+                <form action = "/auth/logout" method="post">
+    <button type="submit" class="bg-red-600 shadow-black shadow-lg py-2 px-4 rounded transition duration-300 no-underline">
+        Logout</button>
+    </form>
+        
+    <% } else { %>
+    <a href="/auth/login" class="bg-red-600 shadow-black shadow-lg py-2 px-4 rounded transition duration-300 no-underline">
+        Login</a>
+        <% } %>
+
 
 </div>
 <p></p>
