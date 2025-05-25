@@ -10,11 +10,12 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const { default: mongoose } = require('mongoose');
 const DB_path = "mongodb+srv://Iam:heyUsingMongo@nodecluster.b7cjq.mongodb.net/home?retryWrites=true&w=majority&appName=nodeCluster";
 
-// ab hmne kya kiya hai ki hmne is bar cheeze cookie me store karne ke bajaye session me store kiya hai
-// ab as cookie sirf session id store hoti hai actual login info hmare server pe hoti hai
-// hmne MongoDBStore se Object - session import kiya aur ek nya store collection banaya ape mongoDB me 
-// aur ek middleware banaya jo session ko handle karega app.use(session({...})) jisme store me wo data store hoga jo hmne session me store kiya hai
-// ab hmne session me isLoggedIn ko true ya false set kiya hai aur isLoggedIn ko req object me add kiya hai   
+// import kiya validation by express-validator se fir see authController me use kiya see syntax uske hisab se validation add kar diya kyoki browser ke validatin change kiye ja skte h user ke through....
+
+// hm ek se jyada middleware use kar skte h bas un sabko as array rakh do.... see authController.js ....
+
+// ab hmne ek ek cheez ko check kiya aur fir finally ek middleware banaya jisme hm checj kar rhe h ki validation me koi error hai ya nahi agar hai to wapis signUp render with old values and if not then we can redirect....
+
 
 const app = express();
 
