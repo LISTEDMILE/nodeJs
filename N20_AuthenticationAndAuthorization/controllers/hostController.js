@@ -1,4 +1,4 @@
-const Favourites = require("../models/favouriteModel");
+
 const Home = require("../models/firstmodel");
 
 exports.addHomeGet = (req, res, next) => {
@@ -6,7 +6,8 @@ exports.addHomeGet = (req, res, next) => {
     active: "addHome",
     title: "Add Home",
     editing: false,
-    isLoggedIn: req.isLoggedIn
+    isLoggedIn: req.isLoggedIn,
+    user: req.session.user,
   });
 };
 
@@ -29,7 +30,8 @@ exports.addHomePost = (req, res, next) => {
   });
   home.save().then(
     res.render("host/addedHome", { active: "addHomePost", title: "Home Added",
-      isLoggedIn: req.isLoggedIn })
+      isLoggedIn: req.isLoggedIn,
+      user: req.session.user,})
   );
 };
 
@@ -49,7 +51,8 @@ exports.getEditHome = (req, res, next) => {
       active: "hostHomeList",
       title: "Edit Home",
       editing: editing,
-      isLoggedIn: req.isLoggedIn
+      isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };
@@ -79,7 +82,8 @@ exports.hostHomeList = (req, res, next) => {
       active: "hostHomeList",
       title: "Home added by you",
       details: details,
-      isLoggedIn: req.isLoggedIn
+      isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };

@@ -17,6 +17,10 @@ const DB_path = "mongodb+srv://Iam:heyUsingMongo@nodecluster.b7cjq.mongodb.net/h
 // ab hmne ek ek cheez ko check kiya aur fir finally ek middleware banaya jisme hm checj kar rhe h ki validation me koi error hai ya nahi agar hai to wapis signUp render with old values and if not then we can redirect....
 
 
+// ab agar password save karna hai user ka to plain text me vulnerable hai to usko hash karna padega using bcryptjs library.. see authController.js
+// hmne bcryptjs library ko install kiya hai aur use kiya hai password ko hash karne ke liye aur fir usko database me save karne ke liye.
+//bcrypt.hash() matlab kisko hash karna aur kitni bar......
+
 const app = express();
 
 

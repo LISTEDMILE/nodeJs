@@ -1,18 +1,56 @@
 const { check , validationResult } = require("express-validator");
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     active: "login",
     title: "login",
-    isLoggedIn: false
+    isLoggedIn: false,
+    oldInput: {
+      username: "",
+    },
   });
 };
 
-exports.postLogin = (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ userName: username })
+  if (!user) {
+    return res.status(400).render("auth/login", {
+      active: "login",
+      title: "Login",
+      isLoggedIn: false,
+      errors: ["User not found"],
+      oldInput: {
+        username: username,
+      }
+    });
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  
+  if (!isMatch) {
+    return res.status(400).render("auth/login", {
+      active: "login",
+      title: "Login",
+      isLoggedIn: false,
+      errors: ["Invalid password"],
+      oldInput: {
+        username: username,
+      }
+    });
+  }
+  
   req.session.isLoggedIn = true;
-  res.redirect("/store/homeList")
-}
+
+  req.session.user = user;
+  console.log("isMatch:", req.session.user);
+  await req.session.save();
+      res.redirect("/host");
+    }
+  
+
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(() => {
@@ -117,14 +155,17 @@ exports.postSignUp = [
       });
     }
 
-    const user = new User({
-      firstName: firstname,
-      lastName: lastname,
-      userName: username,
-      password: password,
-      userType: userType
-    });
-    user.save()
+ bcrypt.hash(password, 12)
+    .then(hashedPassword => {
+      // Create a new user with the hashed password
+      const user = new User({
+        firstName: firstname,
+        lastName: lastname,
+        userName: username,
+        password: hashedPassword,
+        userType: userType
+      });
+      user.save()
       .then(() => {
         res.redirect("/auth/login");
       })
@@ -144,6 +185,10 @@ exports.postSignUp = [
           }
         });
       });
+    })
+
+  
+      
 }
 ]
 
