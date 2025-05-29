@@ -1,115 +1,32 @@
 const express = require('express');
-const hostRouter = require('./routes/hostRouter');
-const storeRouter = require('./routes/storeRouter');
-const authRouter =require('./routes/authRouter');
 const errorr = require('./controllers/errorrController');
 const rootDir = require("./utils/pathUtils");
 const path = require('path');
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
-const multer = require('multer');
 const { default: mongoose } = require('mongoose');
-const DB_path = "mongodb+srv://Iam:heyUsingMongo@nodecluster.b7cjq.mongodb.net/home?retryWrites=true&w=majority&appName=nodeCluster";
-
-
+const DB_path = "mongodb+srv://Iam:heyUsingMongo@nodecluster.b7cjq.mongodb.net/todo?retryWrites=true&w=majority&appName=nodeCluster";
+const cors = require('cors');
 
 const app = express();
-
-//agar hme apne local se koi file bhejni h to hm direct nhibhej skte only text hi bhej skte h to uske liye hmne enctype multipart/form-data use kiya h see addHome.ejs file usse kya hoga ab data chunks me chla jaega.....
-// input type me file , image/* ka matlab image ka koi bhi type ya / ke bad jpg, png, jpeg, gif etc. ho skta h..
-
-// ab us file ko access karne ke liye multer use karte h jo ki ek middleware h jo file ko access karne me help karta h..
-
-// ab hme multer ko configure karna hoga ki hme file kaise store karni h aur uska naam kya rakhna h etc. to uske liye hm multer.diskStorage() use karte h jo ki ek function h jo ki 2 argument leta h destination aur filename.
-
-// destination me hme batana hoga ki file ko kaha store karna h aur filename me hme batana hoga ki file ka naam kya rakhna h..
-
-// ab hme multer ko use karna hoga to uske liye hm multer() function ko call karte h jo ki ek object return karta h jisme hme storage aur fileFilter pass karna hoga..
-
-// ab hme app.use() me multer() ko use karna hoga jo ki ek middleware h jo file ko access karne me help karta h..
-
-// jaise yha app.use(multer(multerOptions).single('photo')); yha single() ka matlab h ki hme sirf ek file bhejni h aur photo us file ka naam h jo ki form me diya h..
-
-// ab hme file ko access karne ke liye req.file ka use karna hoga jo ki multer ne create kiya h..
-
-//isse kya hoga ki file uploaad folder jo ki hmne dicide kiya usme save ho jaega aur to use them is folder ko kuch req ke liye public bhi kar skte h see app.js file me app.use("/uploads/", express.static(path.join(rootDir, 'uploads'))); yha hmne uploads folder ko public kar diya h jisse ki hum us file ko access kar sake..
-
-app.set('view engine','ejs');
-app.set('views', 'views');
-
-const store = new MongoDBStore({
-    uri: DB_path,
-    collection:'sessions'
-});
-const randomString = (length) => {
-    const characters = 'abcdefghijklmnopqrstuvwxyz';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters[randomIndex];
-    }
-    return result;
-}
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null,  randomString(20) + '-' + file.originalname);
-    }
-});
-
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}
-
-const multerOptions = {
-    storage: storage,
-    fileFilter: fileFilter,
-};
-
-app.use(express.static(path.join(rootDir, 'public')));
-app.use("/uploads/", express.static(path.join(rootDir, 'uploads')));
-app.use("/host/uploads/", express.static(path.join(rootDir, 'uploads')));
 app.use(express.urlencoded());
-app.use(multer(multerOptions).single('photo'));
+app.use(express.static(path.join(rootDir, 'public')));
 
-app.use(session({
-    secret: "NodeJs",
-    resave: false,
-    saveUninitialized: false,
-    store: store,
-}));
+app.use(express.json());
+app.use(cors());
 
-
-app.use((req, res, next) => {
-    req.isLoggedIn = req.session.isLoggedIn;
-    next();
-    }
-    
-);
-app.use("/auth",authRouter);
-app.use("/host", (req, res, next) => {
-    if (req.isLoggedIn) {
-        next();
-    }
-    else {
-        res.redirect("/auth/login");
-    }
-} );
-app.use("/host", hostRouter);
-app.use("/store", storeRouter);
-
-
+app.use("/api/todo", require('./routes/todoItemsRouter'));
 app.use(errorr.errorr);
 
 
 const PORT = 3000;
 
+// ab kya karenge server pe ejs use karne ke bajae react use karenge isse kya hoga ki humara frontend aur backend dono alag alag rahenge,
+// jo bhi ui wagerah h wo client side pe render hoga aur backend sirf data provide karega, isse humara code modular ho jayega aur maintain karna asan ho jayega.
+//ab iske liye express.json() use karenge jo ki json data ko parse karega aur humein use karne dega, isse humara code clean aur readable rahega.
+// cors() use karenge taaki humare frontend se backend ko access kar sakein, isse humara code secure rahega aur kisi bhi cross-origin request ko allow karega.
+
+
+//hmne ek alag folder bnaya itemsServices.js jisme humne server se items ko add, delete aur get karne ke liye functions bnaye hain, isse humara code modular ho jayega aur maintain karna asan ho jayega. jitna bhi backend aur frontend me links hoge wo sab yhi handle honge ab hm kya karenge ki apne react app se functions ko call karenge jo is file me h wo basically server se interact karenge.. 
+// how see itemsServices.js file in todoFrontend/src/services/itemsServices.js......
 
 
 mongoose.connect(DB_path).then(() => {

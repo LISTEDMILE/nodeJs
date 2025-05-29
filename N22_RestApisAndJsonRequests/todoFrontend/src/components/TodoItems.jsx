@@ -9,6 +9,7 @@ const TodoItems = ({ todoItems,handleDeleteItem }) => {
           <TodoItem
             todoDate={item.dueDate}
             todoName={item.name}
+            id={item.id}
             handleDeleteItem={handleDeleteItem}
           />)}
         

@@ -3,7 +3,8 @@ import AppName from "./components/AppName";
 import "./App.css";
 import TodoItems from "./components/TodoItems";
 import WelcomeMessage from "./components/WelcomeMessage"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { addItemToServer, getAllItemsFromServer, deleteItemFromServer, } from "../services/itemsServices";
 
 function App() {
   // hm cheezo ko components ki tarah use kar skte hai jaise yha components me tod liya....
@@ -13,15 +14,27 @@ function App() {
     
 
   const [todoItems, setTodoItems] = useState([]);
+
+  useEffect(() => {
+    getAllItemsFromServer().then((items) => {
+      setTodoItems(items);
+    }).catch((error) => {
+      console.error("Error fetching todo items:", error);
+    });
+    
+  }, []);
   
-  const onNewItem = (itemName, itemDueDate) => {
-    const newTodoItems = [...todoItems,
-      { name: itemName, dueDate: itemDueDate }];
+  const onNewItem = async (itemName, itemDueDate) => {
+    const serverItem = await addItemToServer(itemName, itemDueDate);
+    const newTodoItems = [serverItem,...todoItems];
     setTodoItems(newTodoItems);
   };
 
-  const handleDeleteItem = (name) => {
-    const newDeletedItems = todoItems.filter((item) => item.name!== name);
+  const handleDeleteItem = async (id) => {
+    console.log(id);
+    const deletedItemId = await deleteItemFromServer(id);
+    console
+    const newDeletedItems = todoItems.filter((item) => item.id !== deletedItemId);
     setTodoItems(newDeletedItems);
   };
 
